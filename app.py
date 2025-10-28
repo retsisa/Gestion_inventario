@@ -3,7 +3,6 @@ import sqlite3
 from datetime import date
 from dotenv import load_dotenv
 import os
-from init_db import crear_db
 
 load_dotenv()
 
@@ -129,5 +128,4 @@ def logout():
     return redirect(url_for("login"))
 
 if __name__=="__main__":
-    crear_db()
     app.run(debug=True)
