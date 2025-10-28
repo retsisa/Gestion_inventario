@@ -3,14 +3,9 @@ import sqlite3
 from datetime import date
 from dotenv import load_dotenv
 import os
+from init_db import crear_db
 
 load_dotenv()
-
-if not os.path.exists("Inventarios.db"):
-    print("🆕 No se encontró Inventarios.db, creando base de datos...")
-    import init_db  # Esto ejecuta el contenido de init_db.py una sola vez
-else:
-    print("✅ Base de datos ya existe, no se recreará.")
 
 app=Flask(__name__)
 app.secret_key=os.getenv("SECRET_KEY")
@@ -128,4 +123,5 @@ def logout():
     return redirect(url_for("login"))
 
 if __name__=="__main__":
+    crear_db()
     app.run(debug=True)
