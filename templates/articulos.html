@@ -1,0 +1,57 @@
+{% extends "base.html" %}
+{% block title %}Artículos{% endblock %}
+{% block content %}
+<h2 class="mb-4 text-center">📋 Lista de Equipos</h2>
+
+{% if vencidos %}
+<div class="alert alert-danger">
+  ⚠️ Hay {{ vencidos|length }} equipos con devolución retrasada:
+  <ul>
+    {% for v in vencidos %}
+      <li>{{ v.nombre }} (Usuario: {{ v.usuario }}, Fecha límite: {{ v.fecha_devolucion }})</li>
+    {% endfor %}
+  </ul>
+</div>
+{% endif %}
+
+
+<div class="mb-3 text-end">
+  <a href="{{ url_for('nuevo') }}" class="btn btn-success">➕ Nuevo artículo</a>
+</div>
+
+<table class="table table-hover table-bordered align-middle text-center">
+  <thead class="table-dark">
+    <tr>
+      <th>ID</th>
+      <th>Nombre</th>
+      <th>Estado</th>
+      <th>Ubicación</th>
+      <th>Acciones</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for e in equipos %}
+    <tr>
+      <td>{{ e.id }}</td>
+      <td>{{ e.nombre }}</td>
+      <td>
+        {% if e.estado == 'DISPONIBLE' %}
+          <span class="badge bg-success">{{ e.estado }}</span>
+        {% elif e.estado == 'AGOTADO' %}
+          <span class="badge bg-warning text-dark">{{ e.estado }}</span>
+        {% elif e.estado == 'PRESTADO' %}
+          <span class="badge bg-info text-dark">{{ e.estado }}</span>
+        {% else %}
+          <span class="badge bg-danger">{{ e.estado }}</span>
+        {% endif %}
+      </td>
+      <td>{{ e.ubicacion }}</td>
+      <td>
+        <a href="{{ url_for('editar', id=e.id) }}" class="btn btn-sm btn-primary">✏️ Editar</a>
+        <a href="{{ url_for('eliminar', id=e.id) }}" class="btn btn-sm btn-danger" onclick="return confirm('¿Eliminar este artículo?')">🗑️ Eliminar</a>
+      </td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+{% endblock %}

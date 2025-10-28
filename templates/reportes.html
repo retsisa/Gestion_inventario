@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+{% block title %}Reporte por usuario{% endblock %}
+{% block content %}
+<h2 class="mb-4 text-center">📋 Reporte de uso por usuario</h2>
+
+<table class="table table-bordered table-hover">
+  <thead class="table-dark text-center">
+    <tr>
+      <th>Usuario</th>
+      <th>Equipo</th>
+      <th>Fecha de préstamo</th>
+      <th>Fecha de devolución</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for r in reportes %}
+    <tr class="text-center">
+      <td>{{ r.usuario }}</td>
+      <td>{{ r.equipo }}</td>
+      <td>{{ r.fecha_prestamo }}</td>
+      <td>{{ r.fecha_devolucion }}</td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+{% endblock %}
